@@ -3,7 +3,14 @@ import "./bloque-horario.css"; // Asegúrate de ajustar la ruta del archivo CSS 
 import BotonReservarHora from "./BotonReservarHora";
 import ExpandirBloqueHorario from "./ExpandirBloqueHorario";
 
-function MiniaturaBloqueHorario({ disponibilidadInicial, disponilidadTotal }) {
+function MiniaturaBloqueHorario({
+  disponibilidadInicial,
+  disponilidadTotal,
+  fecha,
+  bloque,
+  tipoExamen
+}) {
+  console.log(tipoExamen)
   const [buttonPopup, setHorariosVisible] = useState(false);
   const [horasDisponibles, setHoraDisponible] = useState(disponibilidadInicial);
   const [horasOcupadas, setHOrasOcupadas] = useState(
@@ -14,12 +21,6 @@ function MiniaturaBloqueHorario({ disponibilidadInicial, disponilidadTotal }) {
     setHorariosVisible(true);
   }
 
-  function handleClick() {
-    if (horasDisponibles > 0) {
-      setHoraDisponible(horasDisponibles - 1);
-      setHOrasOcupadas(horasOcupadas + 1);
-    }
-  }
 
   return (
     <div className="bloque-horario">
@@ -29,7 +30,9 @@ function MiniaturaBloqueHorario({ disponibilidadInicial, disponilidadTotal }) {
         <BotonReservarHora
           isFullyAvailable={false}
           className="boton-agendar"
-          agendarHora={handleClick}
+          fecha = {fecha}
+          bloque = {bloque}
+          tipoExamen = {tipoExamen}
         ></BotonReservarHora>
         <button
           className="boton-expandir"
@@ -40,6 +43,8 @@ function MiniaturaBloqueHorario({ disponibilidadInicial, disponilidadTotal }) {
         <ExpandirBloqueHorario
           trigger={buttonPopup}
           setTrigger={setHorariosVisible}
+          fecha={fecha}
+          bloque={bloque}
         ></ExpandirBloqueHorario>
       </div>
     </div>

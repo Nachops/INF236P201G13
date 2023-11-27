@@ -9,6 +9,7 @@ import {
 } from "date-fns";
 import { es } from "date-fns/locale";
 import ColumnaDia from "./ColumnaDia";
+import { Link } from "react-router-dom";
 
 const Calendar = () => {
   const [currentMonth, setCurrentMonth] = useState(new Date());
@@ -55,15 +56,17 @@ const Calendar = () => {
   const renderCells = () => {
     let rows = [];
     let days = [];
+    const dateFormat = "yyyy-MM-dd";
+    let startDate = startOfWeek(currentMonth, { weekStartsOn: 1 });
 
     for (let i = 0; i < 7; i++) {
+      let a = format(addDays(startDate, i), dateFormat, { locale: es })
       days.push(
         <>
           <ColumnaDia
             className="columna-dia"
-            tipoExamen="Radiografia"
-            dia="Martes"
-            fecha="06-08-2024"
+            tipoExamen="radiografia"
+            fecha={a}
           />
         </>
       );
@@ -92,9 +95,15 @@ const Calendar = () => {
           </div>
         </div>
         <div className="col col-center">
-          <button onClick={() => setSelectedCalendar(1)}>Exámenes 1</button>
-          <button onClick={() => setSelectedCalendar(2)}>Exámenes 2</button>
-          <button onClick={() => setSelectedCalendar(3)}>Exámenes 3</button>
+          <Link to={`/calendar/Radiografia`}>
+          <button onClick={() => setSelectedCalendar(1)}>Radiografía</button>
+          </Link>
+          <Link to={`/calendar/Scanner`}>
+          <button onClick={() => setSelectedCalendar(2)}>Scanner</button>
+          </Link>
+          <Link to={`/calendar/Resonancia`}>
+          <button onClick={() => setSelectedCalendar(3)}>Resonancia</button>
+          </Link>
         </div>
         <div
           className="col col-end"

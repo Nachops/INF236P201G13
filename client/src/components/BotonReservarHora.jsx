@@ -1,4 +1,9 @@
+import CrearHorario from "./CrearHorario"
+import React, { useState } from "react"
+
 function BotonReservarHora(props) {
+  console.log(props)
+  const [button, Formulario] = useState(false);
   const getBloque = (isempty) => {
     if (!isempty) {
       return <p>agregar hora</p>;
@@ -8,9 +13,10 @@ function BotonReservarHora(props) {
   };
 
   return (
-    <button onClick={props.agendarHora}>
+    <><button onClick={() => Formulario(true)}>
       {getBloque(props.isFullyAvailable)}
-    </button>
+    </button><CrearHorario trigger={button} setTrigger={Formulario} tipoExamen ={props.tipoExamen} fecha ={props.fecha} bloque ={props.bloque}/></>
+
   );
 }
 
